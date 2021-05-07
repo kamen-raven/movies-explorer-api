@@ -1,0 +1,34 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "Бэкенд дипломной работы на курсе \"Веб-разработчик\" от Яндекс.Практикума",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamen-raven/movies-explorer-api.git"
+  },
+  "keywords": [
+    "yandex_praktikum"
+  ],
+  "author": "Slava Kamenev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamen-raven/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/kamen-raven/movies-explorer-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.7"
+  }
+}

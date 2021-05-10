@@ -34,13 +34,13 @@ mongoose.connect(MONGO_URL, {
 });
 
 app.use(requestLogger); // подключение логгера запросов
-app.use(limiter);
+app.use(limiter); // подключение лимитера на запросы
 app.use(helmet()); // подключение защиты helmet
 app.use(cors()); // подключение cors
 app.use(bodyParser.json()); // для собирания JSON-формата
 app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
 
-app.use(router); // подключение лимитера на запросы & все внутренние роуты
+app.use(router); // все внутренние роуты
 
 app.use(errorLogger); // подключение логгера ошибок
 app.use(errors()); // обработчик ошибок валидации celebrate

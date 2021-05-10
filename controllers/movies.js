@@ -7,13 +7,13 @@ const NotFoundError = require('../errors/not-found-error.js'); // 404
 
 // возвращает все сохранённые пользователем фильмы - GET /movies
 const getMovies = (req, res, next) => {
-/* const owner = req.user._id; */
-  Movie.find({})
+  const myId = req.user._id;
+  Movie.find({ owner: myId })
     .then((movies) => res.status(200).send(movies))
     .catch(next);
 };
 
-// создаёт фильм - POST /movies
+// создаёт карточку фильма - POST /movies
 const createMovie = (req, res, next) => {
   const {
     country,
@@ -38,7 +38,7 @@ const createMovie = (req, res, next) => {
     image,
     trailer,
     thumbnail,
-    owner,
+    owner, // owner
     movieId,
     nameRU,
     nameEN,
@@ -56,7 +56,7 @@ const createMovie = (req, res, next) => {
 };
 
 // удаляет сохранённый фильм по идентификатору - DELETE /movies/:movieId
-const deleteMovieById = (res, req, next) => {
+const deleteMovieById = (req, res, next) => {
   const { movieId } = req.params;
   Movie.findById(movieId) // проверяем права пользователя на добавленный фильм
     .orFail(() => {
@@ -66,7 +66,7 @@ const deleteMovieById = (res, req, next) => {
       if (movie.owner._id.toString() !== req.user._id) {
         next(new ForbiddenError('Недостаточно прав для удаления фильма'));
       } else {
-        Movie.deleteOne(movieId) // и только тут удаляем, если права подтверждены
+        Movie.findByIdAndRemove(movieId) // и только тут удаляем, если права подтверждены
           .then(() => {
             res.status(200).send({ message: 'Фильм успешно удален' });
           })
@@ -75,7 +75,7 @@ const deleteMovieById = (res, req, next) => {
     })
     .catch((err) => {
       if (err.kind === 'ObjectId') {
-        next(new BadRequestError('Проблемы с _id карточки: неверный формат идентификатора'));
+        next(new BadRequestError('Проблемы с _id фильма: неверный формат идентификатора'));
       } else {
         next(err);
       }

@@ -5,7 +5,12 @@ const { // контроллеры
   editUserInfo,
 } = require('../controllers/users.js');
 
-router.get('/me', getCurrentUser); // возвращает информацию о текущем пользователе (email и имя)
-router.patch('/me', editUserInfo); // обновляет информацию о текущем пользователе (email и имя)
+const { // валидация
+  validationGetCurrentUser,
+  validationEditUserInfo,
+} = require('../middlewares/validations.js');
+
+router.get('/me', validationGetCurrentUser, getCurrentUser); // возвращает информацию о текущем пользователе (email и имя)
+router.patch('/me', validationEditUserInfo, editUserInfo); // обновляет информацию о текущем пользователе (email и имя)
 
 module.exports = router;

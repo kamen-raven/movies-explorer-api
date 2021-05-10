@@ -71,9 +71,7 @@ const getCurrentUser = (req, res, next) => {
     });
 };
 
-// обновляет профиль - PATCH
-/* # обновляет информацию о пользователе (email и имя)
-PATCH /users/me */
+// обновляет информацию о пользователе (email и имя) - PATCH /users/me
 const editUserInfo = (req, res, next) => {
   const { email, name } = req.body;
   const myId = req.user._id;
@@ -91,6 +89,8 @@ const editUserInfo = (req, res, next) => {
         next(new BadRequestError(`Переданы некорректные данные при обновлении профиля: ${Object.values(err.errors).map((error) => error.message).join(', ')}`));
       } else if (err.kind === 'ObjectId') {
         next(new BadRequestError('Проблемы с _id пользователя: неверный формат идентификатора'));
+      } else if (err.name === 'MongoError' && err.code === 11000) {
+        next(new ConflictError('Пользователь с указанной почтой уже существует'));
       } else {
         next(err);
       }

@@ -30,13 +30,13 @@ const userSchema = new mongoose.Schema({
   versionKey: false,
 });
 
-userSchema.methods.toJSON = function () {
+userSchema.methods.toJSON = function func() {
   const obj = this.toObject();
   delete obj.password;
   return obj;
 };
 
-userSchema.statics.findUserByCredentials = function (email, password) {
+userSchema.statics.findUserByCredentials = function func(email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {

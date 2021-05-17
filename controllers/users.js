@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 // импорт модели
 const User = require('../models/user.js');
-const { JWT_SECRET } = require('../config.js');
+const { JWT_SECRET } = require('../utils/config.js');
 
 // подключаем классы ошибок
 const BadRequestError = require('../errors/bad-request-error.js'); // 400

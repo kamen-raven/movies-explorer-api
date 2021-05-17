@@ -10,7 +10,7 @@ const { errors } = require('celebrate');
 const {
   PORT,
   MONGO_URL,
-} = require('./config.js'); /* const { PORT = 3000, MONGO_URL = 'mongodb://localhost:27017/bitfilmsdb' } = process.env; */
+} = require('./utils/config.js'); /* const { PORT = 3000, MONGO_URL = 'mongodb://localhost:27017/bitfilmsdb' } = process.env; */
 
 // импорт роутов
 const router = require('./routes/index.js');

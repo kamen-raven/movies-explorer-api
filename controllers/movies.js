@@ -9,7 +9,7 @@ const NotFoundError = require('../errors/not-found-error.js'); // 404
 const getMovies = (req, res, next) => {
   const myId = req.user._id;
   Movie.find({ owner: myId })
-    .then((movies) => res.status(200).send(movies))
+    .then((movies) => res.send(movies))
     .catch(next);
 };
 
@@ -66,9 +66,9 @@ const deleteMovieById = (req, res, next) => {
       if (movie.owner._id.toString() !== req.user._id) {
         next(new ForbiddenError('Недостаточно прав для удаления фильма'));
       } else {
-        Movie.findByIdAndRemove(movieId) // и только тут удаляем, если права подтверждены
+        movie.remove() // и только тут удаляем, если права подтверждены
           .then(() => {
-            res.status(200).send({ message: 'Фильм успешно удален' });
+            res.send({ message: 'Фильм успешно удален' });
           })
           .catch((err) => next(err));
       }

@@ -13,13 +13,12 @@ const { createAccountLimiter } = require('../middlewares/rate-limiter.js'); // �
 const { // валидация
   validationCreateUser,
   validationLoginUser,
-  validationAuth,
 } = require('../middlewares/validations.js');
 
 router.post('/signup', validationCreateUser, createAccountLimiter, createUser); // регистрация
 router.post('/signin', validationLoginUser, login); // логин
 
-router.use(validationAuth, auth); // подключили проверку авторизации
+router.use(auth); // подключили проверку авторизации
 
 router.use('/users', userRoutes); // роут пользователя
 router.use('/movies', movieRoutes); // роут карточек фильмов

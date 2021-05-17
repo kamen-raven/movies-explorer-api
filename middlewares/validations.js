@@ -2,19 +2,6 @@ const { celebrate, Joi } = require('celebrate');
 const validator = require('validator');
 const { ObjectId } = require('mongoose').Types;
 
-// ------------------ВАЛИДАЦИЯ AUTH------------------ //
-
-// валидация проверки авторизации - auth
-const validationAuth = celebrate({
-  headers: Joi.object().keys({
-    authorization: Joi.string()
-      .required()
-      .messages({
-        'any.required': 'Доступ запрещен. Необходима авторизация',
-      }),
-  }).unknown(true),
-});
-
 // ------------------ВАЛИДАЦИЯ USER------------------ //
 
 // валидация контроллера регистрации пользователя - createUser
@@ -74,27 +61,8 @@ const validationLoginUser = celebrate({
   }).unknown(true),
 });
 
-// валидация контроллера текущего пользователя - getCurrentUser
-const validationGetCurrentUser = celebrate({
-  headers: Joi.object().keys({
-    authorization: Joi.string()
-      .required()
-      .messages({
-        'any.required': 'Доступ запрещен. Необходима авторизация',
-      }),
-  })
-    .unknown(true),
-});
-
 // валидация контроллера обновления информации о пользователе - editUserInfo
 const validationEditUserInfo = celebrate({
-  headers: Joi.object().keys({
-    authorization: Joi.string()
-      .required()
-      .messages({
-        'any.required': 'Доступ запрещен. Необходима авторизация',
-      }),
-  }).unknown(true),
   body: Joi.object().keys({
     email: Joi.string()
       .required()
@@ -121,26 +89,8 @@ const validationEditUserInfo = celebrate({
 
 // ------------------ВАЛИДАЦИЯ MOVIE ------------------ //
 
-// валидация контроллера возвращения всех сохранённых пользователем фильмов - getMovies
-const validationGetMovies = celebrate({
-  headers: Joi.object().keys({
-    authorization: Joi.string()
-      .required()
-      .messages({
-        'any.required': 'Доступ запрещен. Необходима авторизация',
-      }),
-  }).unknown(true),
-});
-
 // валидация контроллера создания карточки фильма - createMovie
 const validationCreateMovie = celebrate({
-  headers: Joi.object().keys({
-    authorization: Joi.string()
-      .required()
-      .messages({
-        'any.required': 'Доступ запрещен. Необходима авторизация',
-      }),
-  }).unknown(true),
   body: Joi.object().keys({
     country: Joi.string()
       .required()
@@ -220,13 +170,6 @@ const validationCreateMovie = celebrate({
 
 // валидация контроллера удаления сохранённого фильма по идентификатору - deleteMovieById
 const validationDeleteMovieById = celebrate({
-  headers: Joi.object().keys({
-    authorization: Joi.string()
-      .required()
-      .messages({
-        'any.required': 'Доступ запрещен. Необходима авторизация',
-      }),
-  }).unknown(true),
   params: Joi.object().keys({
     movieId: Joi.string()
       .required()
@@ -241,15 +184,11 @@ const validationDeleteMovieById = celebrate({
 });
 
 module.exports = {
-  // авторизация
-  validationAuth,
   // пользователь
   validationCreateUser,
   validationLoginUser,
-  validationGetCurrentUser,
   validationEditUserInfo,
   // фильмы
-  validationGetMovies,
   validationCreateMovie,
   validationDeleteMovieById,
 };

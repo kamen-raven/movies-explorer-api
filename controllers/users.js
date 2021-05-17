@@ -61,7 +61,7 @@ const getCurrentUser = (req, res, next) => {
     .orFail(() => {
       throw new NotFoundError('Пользователь по указанному _id не найден.');
     })
-    .then((user) => res.status(200).send(user))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.kind === 'ObjectId') {
         next(new BadRequestError('Проблемы с _id пользователя: неверный формат идентификатора'));
@@ -83,7 +83,7 @@ const editUserInfo = (req, res, next) => {
     .orFail(() => {
       throw new NotFoundError('Пользователь по указанному _id не найден.');
     })
-    .then((user) => res.status(200).send(user))
+    .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError(`Переданы некорректные данные при обновлении профиля: ${Object.values(err.errors).map((error) => error.message).join(', ')}`));

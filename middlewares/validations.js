@@ -25,7 +25,7 @@ const validationCreateUser = celebrate({
         'string.min': 'Пароль должен быть минимум 8 символов',
         'any.required': 'Введите пароль',
       }),
-    name: Joi.string()
+    username: Joi.string()
       .min(2)
       .max(30)
       .required()
@@ -75,7 +75,7 @@ const validationEditUserInfo = celebrate({
       .messages({
         'any.required': 'Введите почту',
       }),
-    name: Joi.string()
+    username: Joi.string()
       .min(2)
       .max(30)
       .required()

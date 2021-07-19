@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     select: false,
     required: [true, 'Поле password обязательно для заполнения'],
   },
-  name: {
+  username: {
     type: String,
     minlength: [2, 'Имя пользователя не может быть меньше 2 символов'],
     maxlength: [30, 'Имя пользователя не может быть больше 30 символов'],

@@ -2,7 +2,7 @@ const rateLimit = require('express-rate-limit');
 
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 минута
-  max: 20, // блокировка после 100 запросов
+  max: 100, // блокировка после 100 запросов
   message:
     'Слишком много запросов с одного IP, пожалуйста, попробуйте продолжить позже',
 });

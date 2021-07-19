@@ -12,8 +12,8 @@ const ConflictError = require('../errors/conflict-error.js'); // 409
 
 // регистрация пользователя - POST /signup
 const createUser = (req, res, next) => {
-  const { email, password, name } = req.body;
-  if (!email || !password || !name) {
+  const { email, password, username } = req.body;
+  if (!email || !password || !username) {
     throw new BadRequestError('Необходимо заполнить указанные поля');
   }
   if (password.length < 8) {
@@ -21,7 +21,7 @@ const createUser = (req, res, next) => {
   }
   bcrypt.hash(password, 10) // хэшируем пароль
     .then((hash) => {
-      User.create({ email, password: hash, name })
+      User.create({ email, password: hash, username })
         .then((user) => res.status(201).send(user.toJSON()))
         .catch((err) => {
           if (err.name === 'ValidationError') {
@@ -73,11 +73,11 @@ const getCurrentUser = (req, res, next) => {
 
 // обновляет информацию о пользователе (email и имя) - PATCH /users/me
 const editUserInfo = (req, res, next) => {
-  const { email, name } = req.body;
+  const { email, username } = req.body;
   const myId = req.user._id;
   User.findByIdAndUpdate(
     myId,
-    { email, name },
+    { email, username },
     { new: true, runValidators: true }, // документ после обновления
   )
     .orFail(() => {
